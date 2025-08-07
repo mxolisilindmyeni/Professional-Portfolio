@@ -13,10 +13,6 @@ app.get("/", function (req, res) {
 // If you want a /public route for assets
 app.use("/public", express.static(path.join(__dirname, "public")));
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});;
 
 
 
