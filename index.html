@@ -1,21 +1,588 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1">
-		<title>Hello HTML</title>
-		<link rel="stylesheet" href="/public/style.css">
-	</head>
-	<body>
-		<h1>Hello, HTML.</h1>
-		<p>Do not use until Challenge #12</p>
-     <form action="/name" method="post">
-      <label>First Name :</label>
-      <input type="text" name="first" value="John"><br>
-      <label>Last Name :</label>
-      <input type="text" name="last" value="Doe"><br><br>
-      <input type="submit" value="Submit">
-    </form> 
-	</body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mxolisi Myeni - DevOps/SRE Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .card-glass {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: 3px solid #1e293b;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: #334155;
+        }
+        
+        .skill-bar {
+            height: 8px;
+            background-color: #1e293b;
+            border-radius: 4px;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        .nav-link:hover {
+            color: #3b82f6;
+        }
+        
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #3b82f6;
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-slate-900/80 backdrop-blur-md z-50 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-2xl font-bold gradient-text">MM</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="nav-link text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="#about" class="nav-link text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="#experience" class="nav-link text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Experience</a>
+                        <a href="#skills" class="nav-link text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Skills</a>
+                        <a href="#projects" class="nav-link text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                        <a href="#contact" class="nav-link text-slate-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-slate-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95 backdrop-blur-lg pb-4">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
+                <a href="#home" class="nav-link text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#about" class="nav-link text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#experience" class="nav-link text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Experience</a>
+                <a href="#skills" class="nav-link text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                <a href="#projects" class="nav-link text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#contact" class="nav-link text-slate-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
 
+    <!-- Hero Section -->
+    <section id="home" class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">Hi, I'm <span class="gradient-text">Mxolisi Myeni</span></h1>
+                <h2 class="text-2xl md:text-3xl text-slate-400 mb-6">DevOps Engineer & SRE</h2>
+                <p class="text-lg text-slate-400 mb-8 max-w-lg">I build scalable, reliable, and secure cloud infrastructure with a focus on automation and operational excellence.</p>
+                <div class="flex space-x-4">
+                    <a href="#contact" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-md text-white font-medium hover:opacity-90 transition duration-300">Get In Touch</a>
+                    <a href="#projects" class="px-6 py-3 border border-slate-600 rounded-md text-white font-medium hover:bg-slate-800 transition duration-300">View Projects</a>
+                </div>
+                <div class="mt-8 flex space-x-4">
+                    <a href="https://www.linkedin.com/in/mxolisi-myeni-251315124/" target="_blank" class="text-slate-400 hover:text-white transition duration-300">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="https://github.com/" target="_blank" class="text-slate-400 hover:text-white transition duration-300">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://twitter.com/" target="_blank" class="text-slate-400 hover:text-white transition duration-300">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="w-full h-80 md:h-96 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-xl flex items-center justify-center">
+                    <div class="absolute inset-0 bg-[url('https://media.licdn.com/dms/image/D4D03AQHq3hCJQJ6Z8w/profile-displayphoto-shrink_800_800/0/1684414844423?e=2147483647&v=beta&t=J3V5eKx5JbJ9t9z7Q8Z8Q5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q')] bg-cover bg-center opacity-20 rounded-xl"></div>
+                    <div class="relative z-10 flex flex-col items-center">
+                        <img src="https://media.licdn.com/dms/image/D4D03AQHq3hCJQJ6Z8w/profile-displayphoto-shrink_800_800/0/1684414844423?e=2147483647&v=beta&t=J3V5eKx5JbJ9t9z7Q8Z8Q5Q5Q5Q5Q5Q5Q5Q5Q5Q5Q" 
+                             alt="Mxolisi Myeni" 
+                             class="w-40 h-40 md:w-48 md:h-48 rounded-full border-4 border-blue-500/50 mb-4 object-cover">
+                        <h3 class="text-xl font-semibold text-white">Cloud Infrastructure Specialist</h3>
+                        <p class="text-slate-300 mt-2">Automation | Reliability | Security</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">About <span class="gradient-text">Me</span></h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h3 class="text-2xl font-semibold mb-4">Who I Am</h3>
+                <p class="text-slate-400 mb-6">I'm a passionate DevOps Engineer and Site Reliability Engineer with over 5 years of experience in designing, implementing, and maintaining cloud infrastructure and CI/CD pipelines.</p>
+                <p class="text-slate-400 mb-6">My expertise lies in automating infrastructure provisioning, optimizing system performance, and ensuring high availability of services. I thrive in environments that challenge me to solve complex problems with elegant solutions.</p>
+                <p class="text-slate-400">When I'm not working, you can find me contributing to open-source projects, exploring new technologies, or mentoring aspiring DevOps professionals.</p>
+            </div>
+            <div class="card-glass p-8 rounded-xl">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 rounded-lg bg-slate-800/50">
+                        <i class="fas fa-cloud text-3xl text-blue-400 mb-2"></i>
+                        <h4 class="font-semibold mb-1">Cloud Architecture</h4>
+                        <p class="text-sm text-slate-400">Designing scalable cloud solutions</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-slate-800/50">
+                        <i class="fas fa-robot text-3xl text-purple-400 mb-2"></i>
+                        <h4 class="font-semibold mb-1">Automation</h4>
+                        <p class="text-sm text-slate-400">Infrastructure as Code</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-slate-800/50">
+                        <i class="fas fa-shield-alt text-3xl text-green-400 mb-2"></i>
+                        <h4 class="font-semibold mb-1">Security</h4>
+                        <p class="text-sm text-slate-400">Secure by design</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-slate-800/50">
+                        <i class="fas fa-chart-line text-3xl text-yellow-400 mb-2"></i>
+                        <h4 class="font-semibold mb-1">Monitoring</h4>
+                        <p class="text-sm text-slate-400">Observability & Alerting</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-slate-800/30">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Work <span class="gradient-text">Experience</span></h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
+        </div>
+        <div class="relative timeline pl-8 md:pl-0">
+            <!-- Experience 1 -->
+            <div class="relative mb-12 timeline-item">
+                <div class="card-glass p-6 rounded-xl">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-xl font-semibold">Senior DevOps Engineer</h3>
+                        <span class="text-sm text-slate-400 bg-slate-800 px-3 py-1 rounded-full">2021 - Present</span>
+                    </div>
+                    <h4 class="text-blue-400 mb-2">Tech Solutions Inc.</h4>
+                    <p class="text-slate-400 mb-4">Led the migration of legacy systems to Kubernetes clusters, reducing infrastructure costs by 40% and improving deployment frequency by 300%.</p>
+                    <ul class="list-disc list-inside text-slate-400 space-y-1">
+                        <li>Implemented GitOps workflow using ArgoCD</li>
+                        <li>Designed multi-region disaster recovery strategy</li>
+                        <li>Built observability platform with Prometheus and Grafana</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Experience 2 -->
+            <div class="relative mb-12 timeline-item">
+                <div class="card-glass p-6 rounded-xl">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-xl font-semibold">DevOps Engineer</h3>
+                        <span class="text-sm text-slate-400 bg-slate-800 px-3 py-1 rounded-full">2019 - 2021</span>
+                    </div>
+                    <h4 class="text-blue-400 mb-2">Cloud Innovations Ltd</h4>
+                    <p class="text-slate-400 mb-4">Automated infrastructure provisioning and deployment processes, enabling the engineering team to deploy 50+ times per day.</p>
+                    <ul class="list-disc list-inside text-slate-400 space-y-1">
+                        <li>Migrated monolith to microservices architecture</li>
+                        <li>Implemented CI/CD pipelines with Jenkins and GitLab CI</li>
+                        <li>Reduced AWS costs by 25% through resource optimization</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Experience 3 -->
+            <div class="relative timeline-item">
+                <div class="card-glass p-6 rounded-xl">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
+                        <h3 class="text-xl font-semibold">Systems Administrator</h3>
+                        <span class="text-sm text-slate-400 bg-slate-800 px-3 py-1 rounded-full">2017 - 2019</span>
+                    </div>
+                    <h4 class="text-blue-400 mb-2">Data Systems Corp</h4>
+                    <p class="text-slate-400 mb-4">Managed and maintained Linux servers and network infrastructure for enterprise applications.</p>
+                    <ul class="list-disc list-inside text-slate-400 space-y-1">
+                        <li>Automated server provisioning with Ansible</li>
+                        <li>Implemented centralized logging with ELK stack</li>
+                        <li>Reduced system downtime by 60% through proactive monitoring</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Technical <span class="gradient-text">Skills</span></h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Cloud Platforms -->
+            <div class="card-glass p-6 rounded-xl">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-cloud text-2xl text-blue-400 mr-3"></i>
+                    <h3 class="text-xl font-semibold">Cloud Platforms</h3>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">AWS</span>
+                            <span class="text-sm text-slate-400">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Azure</span>
+                            <span class="text-sm text-slate-400">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Okteto</span>
+                            <span class="text-sm text-slate-400">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Infrastructure as Code -->
+            <div class="card-glass p-6 rounded-xl">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-code text-2xl text-purple-400 mr-3"></i>
+                    <h3 class="text-xl font-semibold">Infrastructure as Code</h3>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Terraform</span>
+                            <span class="text-sm text-slate-400">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Ansible</span>
+                            <span class="text-sm text-slate-400">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Containerization -->
+            <div class="card-glass p-6 rounded-xl">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-boxes text-2xl text-green-400 mr-3"></i>
+                    <h3 class="text-xl font-semibold">Containerization</h3>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Docker</span>
+                            <span class="text-sm text-slate-400">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Kubernetes</span>
+                            <span class="text-sm text-slate-400">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Helm</span>
+                            <span class="text-sm text-slate-400">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CI/CD -->
+            <div class="card-glass p-6 rounded-xl">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-sync-alt text-2xl text-yellow-400 mr-3"></i>
+                    <h3 class="text-xl font-semibold">CI/CD</h3>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">GitLab CI</span>
+                            <span class="text-sm text-slate-400">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">GitHub Actions</span>
+                            <span class="text-sm text-slate-400">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Jenkins</span>
+                            <span class="text-sm text-slate-400">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Azure DevOps</span>
+                            <span class="text-sm text-slate-400">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Monitoring -->
+            <div class="card-glass p-6 rounded-xl">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-chart-bar text-2xl text-red-400 mr-3"></i>
+                    <h3 class="text-xl font-semibold">Monitoring</h3>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Prometheus</span>
+                            <span class="text-sm text-slate-400">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Grafana</span>
+                            <span class="text-sm text-slate-400">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">ELK Stack</span>
+                            <span class="text-sm text-slate-400">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Databases -->
+            <div class="card-glass p-6 rounded-xl">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-database text-2xl text-indigo-400 mr-3"></i>
+                    <h3 class="text-xl font-semibold">Databases</h3>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">MongoDB</span>
+                            <span class="text-sm text-slate-400">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Oracle DB</span>
+                            <span class="text-sm text-slate-400">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Programming -->
+            <div class="card-glass p-6 rounded-xl">
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-laptop-code text-2xl text-indigo-400 mr-3"></i>
+                    <h3 class="text-xl font-semibold">Programming</h3>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Python</span>
+                            <span class="text-sm text-slate-400">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Bash</span>
+                            <span class="text-sm text-slate-400">90%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm text-slate-300">Node.js</span>
+                            <span class="text-sm text-slate-400">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-slate-800/30">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured <span class="gradient-text">Projects</span></h2>
+            <div class="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project 1 -->
+            <div class="project-card card-glass p-6 rounded-xl transition duration-300">
+                <div class="h-40 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-lg mb-4 flex items-center justify-center">
+                    <i class="fas fa-project-diagram text-5xl text-blue-400"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Cloud Migration Framework</h3>
+                <p class="text-slate-400 mb-4">A comprehensive framework for migrating legacy applications to cloud-native architecture with zero downtime.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="text-xs bg-slate-800 text-blue-400 px-2 py-1 rounded">AWS</span>
+                    <span class="text-xs bg-slate-800 text-purple-400 px-2 py-1 rounded">Terraform</span>
+                    <span class="text-xs bg-slate-800 text-green-400 px-2 py-1 rounded">Kubernetes</span>
+                </div>
+                <a href="#" class="text-blue-400 hover:text-blue-300 text-sm font-medium inline-flex items-center">
+                    View Project <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <!-- Project 2 -->
+            <div class="project-card card-glass p-6 rounded-xl transition duration-300">
+                <div class="h-40 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-lg mb-4 flex items-center justify-center">
+                    <i class="fas fa-shield-alt text-5xl text-purple-400"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Security Compliance Automation</h3>
+                <p class="text-slate-400 mb-4">Automated security compliance checks for cloud infrastructure with remediation capabilities.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="text-xs bg-slate-800 text-blue-400 px-2 py-1 rounded">AWS Config</span>
+                    <span class="text-xs bg-slate-800 text-purple-400 px-2 py-1 rounded">Python</span>
+                    <span class="text-xs bg-slate-800 text-red-400 px-2 py-1 rounded">Security</span>
+                </div>
+                <a href="#" class="text-blue-400 hover:text-blue-300 text-sm font-medium inline-flex items-center">
+                    View Project <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <!-- Project 3 -->
+            <div class="project-card card-glass p-6 rounded-xl transition duration-300">
+                <div class="h-40 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-lg mb-4 flex items-center justify-center">
+                    <i class="fas fa-tachometer-alt text-5xl text-green-400"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Observability Platform</h3>
+                <p class="text-slate-400 mb-4">Centralized monitoring, logging, and tracing solution for microservices architecture.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="text-xs bg-slate-800 text-blue-400 px-2 py-1 rounded">Prometheus</span>
+                    <span class="text-xs bg-slate-800 text-purple-400 px-2 py-1 rounded">Grafana</span>
+                    <span class="text-xs bg-slate-800 text-yellow-400 px-2 py-1 rounded">ELK</span>
+                </div>
+                <a href="#" class="text-blue-400 hover:text-blue-300 text-sm font-medium inline-flex items-center">
+                    View Project <i class="fas fa-arrow-right ml-1"></i>
+                </a>
+            </div>
+            
+            <!-- Project 4 -->
+</body>
 </html>
