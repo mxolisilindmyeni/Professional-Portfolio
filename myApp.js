@@ -1,16 +1,22 @@
-let express = require('express');
-let app = express();
+const express = require('express');
+const path = require('path');
+const app = express();
 
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/public/style.css");
+// Serve static files from root directory
+app.use(express.static(__dirname));
+
+// Route for root path
+app.get("/", function (req, res) {
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
+// If you want a /public route for assets
+app.use("/public", express.static(path.join(__dirname, "public")));
 
-// Normal usage
-app.use(express.static(__dirname + "/public"));
-
-// Assets at the /public route
-app.use("/public", express.static(__dirname + "/public"));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});;
 
 
 
